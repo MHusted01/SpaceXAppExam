@@ -8,8 +8,8 @@
 import Foundation
 
 // Handles persistence of favorite launches ID using UserDefaults.
-class FavoritesManager {
-    static let shared = FavoritesManager()
+class FavoriteStorage {
+    static let shared = FavoriteStorage()
     private init() {}
 
     private let key = "favoriteLaunchIDs"
