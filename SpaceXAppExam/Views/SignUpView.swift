@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Sign up form for creating new Firebase accounts.
+// Sign up form for creating new Firebase accounts
 struct SignUpView: View {
     @State private var emailAddress: String = ""
     @State private var password: String = ""
@@ -27,12 +27,12 @@ struct SignUpView: View {
                         .autocorrectionDisabled()
                         .keyboardType(.emailAddress)
                         .disabled(isLoading)
-                        
+
                     SecureField("Password", text: $password)
                         .textContentType(.password)
                         .disabled(isLoading)
                 }
-                
+
                 Section {
                     Button {
                         isLoading = true
@@ -60,7 +60,9 @@ struct SignUpView: View {
                             Spacer()
                         }
                     }
-                    .disabled(isLoading || emailAddress.isEmpty || password.isEmpty)
+                    .disabled(
+                        isLoading || emailAddress.isEmpty || password.isEmpty
+                    )
                 }
             }
             .navigationTitle("Sign Up")

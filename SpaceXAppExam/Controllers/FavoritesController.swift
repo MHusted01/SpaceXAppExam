@@ -8,11 +8,10 @@
 import Foundation
 import Observation
 
-// Controller for managing favorite launches.
-// Provides interface between views and FavoritesManager persistence.
+// Controller for managing favorite launches
 @Observable
 class FavoritesController {
-    private let favoritesManager = FavoritesManager.shared
+    private let favoritesManager = FavoriteStorage.shared
     var favoriteIDs: Set<String> = []
 
     init() {
@@ -20,15 +19,17 @@ class FavoritesController {
         self.favoriteIDs = Set(saved)
     }
 
-    /// Checks if a launch is in favorites.
-    /// - Parameter launch: The launch to check.
-    /// - Returns: True if the launch is a favorite.
+    /// Checks if a launch is in favorites
+    /// - Parameter
+    ///     launch: LaunchModel
+    /// - Returns: True if the launch is a favorite
     func isFavorite(_ launch: LaunchModel) -> Bool {
         favoriteIDs.contains(launch.id)
     }
 
-    /// Toggles favorite status for a launch and persists the change.
-    /// - Parameter launch: The launch to toggle.
+    /// Toggles favorite status for a launch and persists the change
+    /// - Parameter
+    ///     launch: LaunchModel
     func toggleFavorite(for launch: LaunchModel) {
         if favoriteIDs.contains(launch.id) {
             favoriteIDs.remove(launch.id)

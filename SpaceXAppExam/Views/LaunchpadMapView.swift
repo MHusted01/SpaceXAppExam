@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-// Map view showing all SpaceX launchpads with annotations.
+// Map view showing all launchpads with annotations. Tapping a launchpad opens a sheet
 struct LaunchpadMapView: View {
     @State private var controller = MapController()
     @Environment(LaunchListController.self) var launchController

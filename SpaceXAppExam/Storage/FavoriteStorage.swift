@@ -7,19 +7,19 @@
 
 import Foundation
 
-// Handles persistence of favorite launches ID using UserDefaults.
+// Handles persistence of favorite launches ID using UserDefaults
 class FavoriteStorage {
     static let shared = FavoriteStorage()
     private init() {}
 
     private let key = "favoriteLaunchIDs"
 
-    /// Loads the launch IDs from UserDefaults. Returns empty array if none exist.
+    // Loads the launch IDs from UserDefaults. Returns empty array if none exist
     func load() -> [String] {
         UserDefaults.standard.stringArray(forKey: key) ?? []
     }
 
-    /// Saves the given launch id list to UserDefaults.
+    // Saves the given launch id list to UserDefaults
     func save(_ ids: [String]) {
         UserDefaults.standard.set(ids, forKey: key)
     }

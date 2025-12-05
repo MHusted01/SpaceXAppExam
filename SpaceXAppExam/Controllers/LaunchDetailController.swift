@@ -8,17 +8,16 @@
 import Foundation
 import Observation
 
-// Controller for the launch detail view.
-// Loads all related data for a specific launch.
+// Controller for the launch detail view. loads all related data for a specific launch
 @Observable
 class LaunchDetailController {
     private let service = SpaceXServices()
-    
+
     var isLoadingDetails = false
     var detailError: String?
     var selectedLaunch: LaunchModel?
-    
-    // Related data for the selected launch
+
+    // Data for the selected launch
     var rocket: RocketModel?
     var launchpad: LaunchpadModel?
     var landingpad: LandingpadModel?
@@ -26,8 +25,10 @@ class LaunchDetailController {
     var crewMembers: [CrewMemberModel] = []
     var payloads: [PayloadModel] = []
 
-    /// Loads all related data for a launch (rocket, launchpad,  landingpad,  capsules, crew and payload ).
-    /// - Parameter launch: The launch to load details for.
+    /// Loads all data for a launch
+    /// - Parameters
+    ///     launch: LaunchModel
+    /// - Throws: APIError as error
     func loadDetails(for launch: LaunchModel) async {
         isLoadingDetails = true
         detailError = nil
@@ -42,9 +43,11 @@ class LaunchDetailController {
         landingpad = nil
 
         do {
-            // Load rocket
-            let rocketModel = try await service.getRocket(id: launch.rocket)
-            self.rocket = rocketModel
+            // Load rocket if available
+            if let rocketId = launch.rocket {
+                let rocketModel = try await service.getRocket(id: rocketId)
+                self.rocket = rocketModel
+            }
 
             // Load launchpad if available
             if let padId = launch.launchpad {
@@ -52,8 +55,10 @@ class LaunchDetailController {
                 self.launchpad = pad
             }
 
-            // Load landing pad from first core with landpad
-            if let landpadId = launch.cores.first(where: { $0.landpad != nil })?.landpad {
+            // Load landing pad from first core with landpad if available
+            if let landpadId = launch.cores.first(where: { $0.landpad != nil })?
+                .landpad
+            {
                 let landpad = try await service.getLandingpad(id: landpadId)
                 self.landingpad = landpad
             }

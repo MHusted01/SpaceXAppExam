@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Model for a SpaceX crew member / astronaut.
+// Model for a crew member/astronaut
 struct CrewMemberModel: Codable, Hashable {
     let name: String
     let agency: String?

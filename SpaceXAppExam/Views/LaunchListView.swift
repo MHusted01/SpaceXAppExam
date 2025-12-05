@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Main view displaying a list of all SpaceX launches.
+// Main view displaying a list of all launches. filtering by favorites when authenticated
 struct LaunchListView: View {
     @State var controller = LaunchListController()
     @Environment(AuthStateController.self) var authController
@@ -19,7 +19,7 @@ struct LaunchListView: View {
     var body: some View {
         NavigationStack(path: $path) {
             List {
-                // Filter picker shown when authenticated
+                // Filter picker only shown when authenticated
                 if authController.authenticationState == .authenticated {
                     Section {
                         Picker("Filter", selection: $showFavoritesList) {
@@ -45,24 +45,20 @@ struct LaunchListView: View {
                 } else {
                     let launchesToShow = controller.filteredLaunches(
                         showFavoritesOnly: showFavoritesList,
-                        isAuthenticated: authController.authenticationState == .authenticated,
+                        isAuthenticated: authController.authenticationState
+                            == .authenticated,
                         favoriteIDs: favoritesController.favoriteIDs
                     )
 
-                    if launchesToShow.isEmpty {
-                        if showFavoritesList {
-                            EmptyStateView(
-                                iconName: "heart.slash",
-                                title: "No launches to show",
-                                message: "You haven't saved any favorite launches yet.",
-                                secondaryMessage: "Tap the heart icon on any launch to add it to favorites."
-                            )
-                        } else {
-                            EmptyStateView(
-                                iconName: "exclamationmark.triangle",
-                                title: "No launches to show"
-                            )
-                        }
+                    if launchesToShow.isEmpty && showFavoritesList {
+                        EmptyStateView(
+                            iconName: "heart.slash",
+                            title: "No favorites yet",
+                            message:
+                                "You haven't saved any favorite launches yet.",
+                            secondaryMessage:
+                                "Tap the heart icon on any launch to add it to favorites."
+                        )
                     } else {
                         ForEach(launchesToShow) { launch in
                             NavigationLink(value: launch) {

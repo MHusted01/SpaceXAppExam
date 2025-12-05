@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Empty state view with icon and messages.
+// Empty state view with icon and messages
 struct EmptyStateView: View {
     let iconName: String
     let title: String

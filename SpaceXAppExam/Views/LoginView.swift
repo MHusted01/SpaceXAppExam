@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Login form for Firebase email/password authentication.
+// Login form for Firebase email/password authentication
 struct LoginView: View {
     @State private var emailAddress: String = ""
     @State private var password: String = ""
@@ -61,7 +61,9 @@ struct LoginView: View {
                             Spacer()
                         }
                     }
-                    .disabled(isLoading || emailAddress.isEmpty || password.isEmpty)
+                    .disabled(
+                        isLoading || emailAddress.isEmpty || password.isEmpty
+                    )
                 }
 
                 Section {

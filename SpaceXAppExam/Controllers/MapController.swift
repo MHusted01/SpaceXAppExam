@@ -8,8 +8,7 @@
 import Foundation
 import Observation
 
-// Controller for the launchpad map view.
-// Handles loading of all launchpads for map annotations.
+// Controller for the launchpad map view. Handles loading of all launchpads for map annotations
 @Observable
 class MapController {
     private let service = SpaceXServices()
@@ -19,6 +18,8 @@ class MapController {
     var error: String? = nil
 
     /// Loads all launchpads from the API.
+    ///  - returns: all launchspads
+    ///  - throws: APIError as badResponse, badStatusCode or decodingFailed
     func loadLaunchpads() async {
         isLoading = true
         error = nil

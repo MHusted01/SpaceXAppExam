@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-// Section view displaying crew members in a horizontal scroll.
+// Section view displaying crew members
 struct CrewSectionView: View {
     let crewMembers: [CrewMemberModel]
-    
+
     var body: some View {
         if !crewMembers.isEmpty {
             VStack(alignment: .leading, spacing: 12) {
@@ -22,9 +22,7 @@ struct CrewSectionView: View {
                         .foregroundStyle(.primary)
                         .frame(width: 80, height: 80)
                         .padding(.bottom)
-                    
-                    
-                    
+
                     VStack(alignment: .center) {
                         Text("Crew")
                             .font(.title)
@@ -33,7 +31,7 @@ struct CrewSectionView: View {
                     Spacer()
                 }
                 .padding(.leading)
-                
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(crewMembers, id: \.name) { member in

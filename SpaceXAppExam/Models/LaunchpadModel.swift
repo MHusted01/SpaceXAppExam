@@ -7,8 +7,7 @@
 
 import Foundation
 
-// Model for a SpaceX launchpad with location and statistics.
-// Used for both map annotations and detail views.
+// Model for a launchpad with location and statistics
 struct LaunchpadModel: Codable, Identifiable, Hashable {
     let id: String
     let name: String

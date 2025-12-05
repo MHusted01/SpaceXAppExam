@@ -8,18 +8,19 @@
 import Combine
 import SwiftUI
 
-// ViewModel for async image loading with caching.
+// ViewModel for async image loading with caching
 class ImageLoaderViewModel: ObservableObject {
     @Published var resource: UIImage?
-    
+
     let cache: URLCache = URLCache(
         memoryCapacity: 1024 * 1024 * 100,
         diskCapacity: 1024 * 1024 * 100
     )
     var cancellable: Set<AnyCancellable> = .init()
 
-    /// Loads an image from URL with caching support.
-    /// - Parameter url: The image URL to load.
+    /// Loads an image from URL with caching support
+    /// - Parameters
+    ///     url: URL?
     func load(url: URL?) {
         guard let url else { return }
 
@@ -68,12 +69,12 @@ class ImageLoaderViewModel: ObservableObject {
     }
 }
 
-// Async image view with placeholder and caching.
+// Async image view with placeholder and caching
 struct ImageView: View {
     @StateObject var viewModel: ImageLoaderViewModel
 
     let url: URL?
-    
+
     init(_ url: URL?) {
         self.url = url
         let vm = ImageLoaderViewModel()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Model for a SpaceX Dragon capsule with reuse statistics.
+// Model for a capsule
 struct CapsuleModel: Codable, Hashable {
     let serial: String
     let type: String

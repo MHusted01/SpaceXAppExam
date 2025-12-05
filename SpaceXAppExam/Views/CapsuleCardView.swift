@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Card view for a single capsule with reuse statistics.
+// Card view for a single capsule with reuse statistics
 struct CapsuleCardView: View {
     let capsule: CapsuleModel
 

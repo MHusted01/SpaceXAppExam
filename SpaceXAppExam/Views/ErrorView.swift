@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-// Reusable error view with retry button.
+// Error view with retry button
 struct ErrorView: View {
     let message: String
     let retryAction: () -> Void
-    
+
     var body: some View {
         VStack(spacing: 12) {
             Spacer()

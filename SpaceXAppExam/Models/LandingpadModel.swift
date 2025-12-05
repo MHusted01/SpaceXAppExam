@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Model for a SpaceX landing pad (drone ship or land zone).
+// Model for a landing pad
 struct LandingpadModel: Codable, Identifiable, Hashable {
     let id: String
     let name: String
@@ -16,7 +16,7 @@ struct LandingpadModel: Codable, Identifiable, Hashable {
     let region: String
     let latitude: Double
     let longitude: Double
-    let type: String         
+    let type: String
     let status: String
     let landingAttempts: Int
     let landingSuccesses: Int

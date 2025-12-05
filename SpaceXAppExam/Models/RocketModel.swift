@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Model for a SpaceX rocket with specifications and statistics.
+// Model for a rocket with specifications and statistics
 struct RocketModel: Codable, Hashable {
     let name: String
     let description: String?

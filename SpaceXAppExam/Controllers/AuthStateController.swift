@@ -10,8 +10,7 @@ import FirebaseCore
 import Foundation
 import Observation
 
-// Controller for Firebase authentication state and operations.
-// Manages sign in, sign up, sign out and auth state listening.
+// Controller for Firebase authentication state and operations. Manages sign in, sign up, sign out and auth state listening
 @Observable
 class AuthStateController {
 
@@ -37,28 +36,31 @@ class AuthStateController {
         }
     }
 
-    /// Registers a listener for Firebase auth state changes.
+    // Registers a listener for Firebase auth state changes
     func registerAuthStateHandler() {
         guard authStateHandler == nil else { return }
 
-        authStateHandler = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+        authStateHandler = Auth.auth().addStateDidChangeListener {
+            [weak self] _, user in
             guard let self else { return }
 
             self.user = user
-            self.authenticationState = (user == nil) ? .unauthenticated : .authenticated
+            self.authenticationState =
+                (user == nil) ? .unauthenticated : .authenticated
             self.displayName = user?.email ?? ""
         }
     }
 
-    /// Converts Firebase auth errors to user-friendly messages.
-    /// - Parameter error: The Firebase error.
-    /// - Returns: A localized error message string.
+    /// Converts Firebase auth errors to user-friendly messages
+    /// - Parameters:
+    ///     error:  Error
+    /// - Returns: error.localizedDesciption
     private func handleAuthError(_ error: Error) -> String {
         let nsError = error as NSError
         guard let errorCode = AuthErrorCode(rawValue: nsError.code) else {
             return error.localizedDescription
         }
-        
+
         switch errorCode {
         case .invalidEmail:
             return "Invalid email address"
@@ -79,9 +81,11 @@ class AuthStateController {
         }
     }
 
-    /// Signs in with email and password.
-    /// - Parameters: email: User's email address. password: User's password.
-    /// - Throws: Firebase auth error if sign in fails.
+    /// Signs in with email and password
+    /// - Parameters:
+    ///     email: String
+    ///     password: String
+    /// - Throws:error
     func signInWithEmailPassword(email: String, password: String) async throws {
         errorMessage = nil
         do {
@@ -96,14 +100,19 @@ class AuthStateController {
         }
     }
 
-    /// Creates a new account with email and password.
-    /// - Parameters: email: User's email address. password: User's password.
-    /// - Throws: Firebase auth error if sign up fails.
+    /// Creates a new account with email and password
+    /// - Parameters:
+    ///     email: String
+    ///     password: String
+    /// - Throws: error
     func signUpWithEmailPassword(email: String, password: String) async throws {
         errorMessage = nil
         do {
-            try await Auth.auth().createUser(withEmail: email, password: password)
-            
+            try await Auth.auth().createUser(
+                withEmail: email,
+                password: password
+            )
+
             if FirebaseApp.app() != nil {
                 registerAuthStateHandler()
             }
@@ -113,7 +122,7 @@ class AuthStateController {
         }
     }
 
-    /// Signs out the current user.
+    // Signs out the current user
     func signOut() {
         do {
             try Auth.auth().signOut()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Model for a launch payload (satellite, cargo, etc).
+// Model for a launch payload
 struct PayloadModel: Codable, Hashable {
     let name: String?
     let type: String?

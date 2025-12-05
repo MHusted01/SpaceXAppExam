@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-// Map annotation view for a launchpad with selection state.
+// Map annotation view for a launchpad with selection state
 struct LaunchpadAnnotationView: View {
     let pad: LaunchpadModel
     let isSelected: Bool
     let onTap: () -> Void
-    
+
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 2) {
@@ -31,7 +31,10 @@ struct LaunchpadAnnotationView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                 }
             }
-            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
+            .animation(
+                .spring(response: 0.3, dampingFraction: 0.7),
+                value: isSelected
+            )
         }
     }
 }

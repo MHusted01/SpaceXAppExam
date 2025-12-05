@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Detail view for a single launch showing all related information.
+// Detail view for a single launch showing all related information
 struct LaunchDetailView: View {
     let launch: LaunchModel
     @State private var controller = LaunchDetailController()
@@ -49,7 +49,9 @@ struct LaunchDetailView: View {
                 // Favorite button only shown when authenticated
                 if authController.authenticationState == .authenticated {
                     Button {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                        withAnimation(
+                            .spring(response: 0.3, dampingFraction: 0.6)
+                        ) {
                             favoritesController.toggleFavorite(for: launch)
                         }
                     } label: {

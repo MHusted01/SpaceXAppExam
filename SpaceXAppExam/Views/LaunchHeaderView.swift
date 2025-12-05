@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-// Header view for launch detail showing patch, name, date, status and external links.
+// Header view for launch detail showing patch, name, date, status and external links
 struct LaunchHeaderView: View {
     let launch: LaunchModel
-    
+
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             LaunchPatchView(url: launch.links.patch.large, size: 120)
@@ -20,7 +20,7 @@ struct LaunchHeaderView: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .foregroundStyle(.secondary)
-                
+
                 if launch.upcoming {
                     StatusBadgeView("UPCOMING")
                 }
@@ -53,7 +53,9 @@ struct LaunchHeaderView: View {
             }
 
             // External links
-            if launch.links.webcast != nil || launch.links.wikipedia != nil || launch.links.article != nil {
+            if launch.links.webcast != nil || launch.links.wikipedia != nil
+                || launch.links.article != nil
+            {
                 HStack(alignment: .center, spacing: 16) {
                     if let webcast = launch.links.webcast {
                         Link(destination: webcast) {
@@ -61,14 +63,14 @@ struct LaunchHeaderView: View {
                         }
                         .buttonStyle(.bordered)
                     }
-                    
+
                     if let wikipedia = launch.links.wikipedia {
                         Link(destination: wikipedia) {
                             Label("Wiki", systemImage: "book.fill")
                         }
                         .buttonStyle(.bordered)
                     }
-                    
+
                     if let article = launch.links.article {
                         Link(destination: article) {
                             Label("Article", systemImage: "newspaper.fill")

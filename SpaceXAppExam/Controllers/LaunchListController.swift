@@ -8,17 +8,16 @@
 import Foundation
 import Observation
 
-// Controller for the launch list view.
-// Handles loading and filtering of launches.
+// Controller for the launch list view. Handles loading and filtering of launches
 @Observable
 class LaunchListController {
     var launches: [LaunchModel] = []
     var isLoading: Bool = false
     var errorMessage: String? = nil
-    
+
     private let service = SpaceXServices()
 
-    // Fetches all launches from the API and sorts by date descending.
+    // Fetches all launches from the API and sorts by date descending
     func loadLaunches() async {
         isLoading = true
         errorMessage = nil
@@ -43,12 +42,12 @@ class LaunchListController {
         isLoading = false
     }
 
-    /// Filters launches based on favorites and authentication status.
+    /// Filters launches based on favorites and authentication status
     /// - Parameters:
-    ///     showFavoritesOnly: Whether to show only favorites.
-    ///     isAuthenticated: Whether the user is logged in. favoriteIDs:
-    ///     Set of favorite launch IDs.
-    /// - Returns: Filtered array of launches.
+    ///     showFavoritesOnly: Bool
+    ///     isAuthenticated: Bool
+    ///     favoriteID: Set<String>
+    /// - Returns: Filtered array of launches or lauches
     func filteredLaunches(
         showFavoritesOnly: Bool,
         isAuthenticated: Bool,

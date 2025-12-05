@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Sheet view displaying all launches from launchpad.
+// Sheet view displaying all launches from a specific launchpad
 struct LaunchesFromPadSheet: View {
     let launchpad: LaunchpadModel
     @Environment(LaunchListController.self) var launchController
@@ -15,7 +15,7 @@ struct LaunchesFromPadSheet: View {
     @Environment(FavoritesController.self) var favoritesController
     @Environment(\.dismiss) private var dismiss
 
-    // Filters launches shows those from this launchpad.
+    // Filters launches to only show those from this launchpad
     var launchesForPad: [LaunchModel] {
         launchController.launches.filter { $0.launchpad == launchpad.id }
     }
@@ -25,20 +25,30 @@ struct LaunchesFromPadSheet: View {
             VStack(spacing: 0) {
                 LaunchpadSheetHeaderView(launchpad: launchpad)
 
-                List(launchesForPad) { launch in
-                    NavigationLink {
-                        LaunchDetailView(launch: launch)
-                    } label: {
-                        LaunchRowView(launch: launch)
+                if launchesForPad.isEmpty {
+                    EmptyStateView(
+                        iconName: "airplane.departure",
+                        title: "No launches from this launchpad",
+                        message:
+                            "This site may be retired or only used for other operations."
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    List(launchesForPad) { launch in
+                        NavigationLink {
+                            LaunchDetailView(launch: launch)
+                        } label: {
+                            LaunchRowView(launch: launch)
+                        }
                     }
                 }
             }
-        }
-        .navigationTitle("Launches")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Done") { dismiss() }
+            .navigationTitle("Launches")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") { dismiss() }
+                }
             }
         }
         .task {

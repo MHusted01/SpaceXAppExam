@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-// Section view displaying capsule information with statistics.
+// Section view displaying capsule information with statistics
 struct CapsuleSectionView: View {
     let capsules: [CapsuleModel]
-    
+
     var body: some View {
         if !capsules.isEmpty {
             VStack(alignment: .leading, spacing: 8) {
@@ -21,7 +21,7 @@ struct CapsuleSectionView: View {
                         .scaledToFit()
                         .foregroundStyle(.primary)
                         .frame(width: 80, height: 80)
-                    
+
                     VStack(alignment: .leading) {
                         Text("Capsules")
                             .font(.title)
@@ -30,7 +30,7 @@ struct CapsuleSectionView: View {
                     Spacer()
                 }
                 .padding(.leading)
-                
+
                 ForEach(capsules, id: \.serial) { capsule in
                     CapsuleCardView(capsule: capsule)
                         .padding(.horizontal)
